@@ -1,0 +1,31 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+<SiteLayout title="Page not found — Học tiếng Tày" description="The page you requested could not be found.">
+  <article class="page-shell">
+    <section class="not-found" aria-labelledby="not-found-title">
+      <p class="error-code" aria-hidden="true">404</p>
+      <div>
+        <p class="state-label">Page not found</p>
+        <h1 id="not-found-title">We couldn't find that page.</h1>
+        <p class="state-copy">The address may be incorrect, or the page may have moved.</p>
+        <a class="home-link" href={base}>Back to home <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </article>
+</SiteLayout>
+
+<style>
+  .page-shell { max-width: 1040px; margin: 0 auto; padding: 4.5rem 3rem 5rem; }
+  .not-found { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 2rem; align-items: start; padding: 2.5rem 0 2.8rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .error-code { margin: 0; color: var(--gold); font: italic 500 clamp(2.8rem, 5vw, 4.5rem)/1 var(--serif); letter-spacing: -0.05em; }
+  .state-label { margin: 0 0 0.55rem; color: var(--green); font-size: 0.85rem; font-weight: 650; }
+  h1 { max-width: 15ch; margin: 0 0 0.7rem; font: 500 clamp(2.3rem, 4.5vw, 3.8rem)/1.04 var(--serif); letter-spacing: -0.035em; }
+  .state-copy { max-width: 55ch; margin: 0 0 1.2rem; color: var(--ink-soft); line-height: 1.7; }
+  .home-link { color: var(--green-deep); font-weight: 600; }
+  @media (max-width: 600px) {
+    .page-shell { padding: 3.3rem 1.2rem 3.8rem; }
+    .not-found { grid-template-columns: 1fr; gap: 1.2rem; padding: 1.8rem 0 2rem; }
+  }
+</style>

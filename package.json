@@ -7,10 +7,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test tests/*.test.ts"
+    "test": "node --test tests/*.test.ts",
+    "smoke:build": "node scripts/smoke-build.mjs",
+    "deploy:dry-run": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy"
   },
   "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
   "dependencies": {
     "astro": "^7.4.13"
+  },
+  "devDependencies": {
+    "wrangler": "4.165.0"
   }
 }
