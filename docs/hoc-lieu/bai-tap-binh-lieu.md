@@ -4,6 +4,8 @@ Bản biên soạn nội bộ đi cùng [khung nhập môn](binh-lieu-nhap-mon.m
 
 ## BL01 — Chào hỏi
 
+Xem [bản thảo lời dẫn và bài luyện đầy đủ](bl01-chao-hoi.md).
+
 - **Nghe hiểu:** “Hai người vừa gặp nhau, đang mời nhau ăn, hay sắp chia tay?” Dùng hai mẩu độc lập: mở đầu và kết thúc cuộc gặp. Đáp án lần lượt: vừa gặp nhau; sắp chia tay.
 - **Thử đáp:** Dừng sau lời chào. Người học tự đáp rồi nghe mẫu; giải thích mẫu này phù hợp giữa hai người quen, không mặc nhiên dùng cho mọi quan hệ.
 - **Ôn:** Trộn thứ tự hai đoạn mới. Nếu nhầm, nghe lại hai lượt lời tương ứng trước khi thử với một đoạn chưa nghe.
