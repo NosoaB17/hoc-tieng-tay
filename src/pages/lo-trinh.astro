@@ -1,0 +1,60 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+<SiteLayout title="Lộ trình học — Học tiếng Tày">
+  <article class="page-shell">
+    <header class="page-heading">
+      <h1>Lộ trình học</h1>
+      <p>Đi từ làm quen đến tự tin hơn, từng bước một. Bạn có thể quay lại hoặc bỏ qua phần đã biết.</p>
+    </header>
+    <section class="empty-state" aria-labelledby="empty-title">
+      <div class="empty-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div>
+        <p class="state-label">Đang chuẩn bị tư liệu</p>
+        <h2 id="empty-title">Chưa có bài học được duyệt.</h2>
+        <p class="state-copy">Bộ bài tiếng Tày Bình Liêu sẽ xuất hiện ở đây sau khi có nguồn rõ ràng, người nói địa phương xác minh và quyền sử dụng được xác nhận. Hiện chưa có câu mẫu hay bản thu để luyện.</p>
+        <a href={`${base}tu-lieu/`}>Xem cách chúng tôi chọn tư liệu <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+    <section class="framework" aria-labelledby="framework-title">
+      <h2 id="framework-title">Khung học dự kiến</h2>
+      <p class="framework-intro">Các bước dưới đây là định hướng, chưa phải bài học đang mở.</p>
+      <ol>
+        <li><span>01</span><div><h3>Làm quen với âm thanh</h3><p>Nghe bản thu đã được phép sử dụng, không đoán thay khi chưa có dữ liệu.</p></div></li>
+        <li><span>02</span><div><h3>Hiểu lời trong ngữ cảnh</h3><p>Giải nghĩa theo tình huống thực tế, có người nói địa phương duyệt.</p></div></li>
+        <li><span>03</span><div><h3>Thử đáp và ôn lại</h3><p>Tập phản hồi theo nhịp riêng, lưu tiến độ trên thiết bị khi tính năng sẵn sàng.</p></div></li>
+      </ol>
+    </section>
+  </article>
+</SiteLayout>
+
+<style>
+  .page-shell { max-width: 1040px; margin: 0 auto; padding: 4.5rem 3rem 5rem; }
+  .page-heading { max-width: 680px; padding-bottom: 2.8rem; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { margin-bottom: 0.8rem; font: 500 clamp(3rem, 6vw, 5rem)/1.02 var(--serif); letter-spacing: -0.035em; }
+  .page-heading p { max-width: 56ch; margin: 0; color: var(--ink-soft); font-size: 1.05rem; line-height: 1.7; }
+  .empty-state { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 2rem; align-items: start; padding: 2.5rem 0 2.8rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .empty-mark { width: 116px; height: 116px; display: grid; place-items: center; position: relative; border: 1px solid var(--line); border-radius: 50%; }
+  .empty-mark span { position: absolute; width: 30px; height: 30px; border: 1px solid var(--green); border-radius: 50%; }
+  .empty-mark span:nth-child(2) { transform: translate(15px, -15px); border-color: var(--gold); }
+  .empty-mark span:nth-child(3) { transform: translate(-15px, 15px); border-color: var(--paper-deep); }
+  .state-label { margin-bottom: 0.55rem; color: var(--green); font-size: 0.85rem; font-weight: 650; }
+  h2 { margin-bottom: 0.65rem; font: 500 clamp(1.8rem, 3vw, 2.5rem)/1.12 var(--serif); letter-spacing: -0.02em; }
+  .state-copy { max-width: 65ch; color: var(--ink-soft); line-height: 1.75; }
+  .empty-state a { color: var(--green-deep); font-weight: 600; }
+  .framework { padding-top: 3.7rem; }
+  .framework h2 { font-size: 2rem; }
+  .framework-intro { margin-bottom: 1.4rem; color: var(--ink-soft); }
+  .framework ol { list-style: none; margin: 0; padding: 0; }
+  .framework li { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.15rem 0; border-top: 1px solid var(--line); }
+  .framework li > span { color: var(--gold); font-family: var(--serif); font-style: italic; }
+  h3 { margin-bottom: 0.35rem; font: 500 1.25rem var(--serif); }
+  .framework li p { max-width: 62ch; margin: 0; color: var(--ink-soft); line-height: 1.65; }
+  @media (max-width: 600px) {
+    .page-shell { padding: 3.3rem 1.2rem 3.8rem; }
+    .empty-state { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.8rem 0 2rem; }
+    .empty-mark { width: 84px; height: 84px; }
+  }
+</style>

@@ -1,0 +1,16 @@
+{
+  "name": "tieng-tay-nha-minh",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nền tảng tự học tiếng Tày — tư liệu có nguồn và được duyệt.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "node --test tests/*.test.ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "astro": "^7.4.13"
+  }
+}

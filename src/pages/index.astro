@@ -1,0 +1,75 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+<SiteLayout>
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <p class="place-label"><span aria-hidden="true"></span> Bắt đầu từ Bình Liêu</p>
+      <h1 id="home-title">Học tiếng Tày,<br /><em>theo nhịp của bạn.</em></h1>
+      <p class="intro">Một nơi để nghe, hiểu và dần tự tin cất lời — bắt đầu từ những tư liệu được người nói địa phương xác minh.</p>
+      <a class="primary-link" href={`${base}lo-trinh/`}>Xem lộ trình <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="hero-note" aria-label="Thông tin hiện tại">
+      <div class="note-rule"></div>
+      <p class="note-title">Mình đang chuẩn bị</p>
+      <p class="note-body">Bộ bài đầu tiên từ tiếng Tày Bình Liêu. Tư liệu đang được xác minh; hiện chưa có bài nghe hay câu mẫu để luyện.</p>
+      <a href={`${base}tu-lieu/`}>Vì sao cần chờ tư liệu? <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="hero-ornament" aria-hidden="true"><span></span><span></span><span></span></div>
+  </section>
+  <section class="home-path" aria-labelledby="path-title">
+    <div>
+      <h2 id="path-title">Học theo cách<br />của riêng mình.</h2>
+      <p class="path-intro">Không cần biết trước tiếng Tày. Có thể đi tuần tự hoặc bắt đầu ở phần mình muốn hiểu hơn.</p>
+    </div>
+    <ol class="path-list">
+      <li><span class="path-index">A</span><div><h3>Nghe</h3><p>Làm quen với âm thanh và nhịp điệu khi có bản thu đã được phép chia sẻ.</p></div></li>
+      <li><span class="path-index">B</span><div><h3>Hiểu</h3><p>Đặt lời nói trong đúng ngữ cảnh, với giải thích đã được người địa phương duyệt.</p></div></li>
+      <li><span class="path-index">C</span><div><h3>Thử đáp</h3><p>Tập nói theo cách thoải mái; không cần bật micro hay gửi giọng nói đi đâu.</p></div></li>
+    </ol>
+  </section>
+</SiteLayout>
+
+<style>
+  .home-hero {
+    max-width: 1240px; min-height: 510px; margin: 0 auto; padding: 5.4rem 3rem 4.5rem;
+    display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(245px, 0.55fr);
+    align-items: center; gap: clamp(3rem, 8vw, 8rem); position: relative; overflow: hidden;
+  }
+  .hero-copy { position: relative; z-index: 1; max-width: 690px; }
+  .place-label { display: flex; align-items: center; gap: 0.65rem; color: var(--green); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.02em; }
+  .place-label span { width: 0.45rem; height: 0.45rem; background: var(--gold); border-radius: 50%; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { margin: 1.1rem 0 1.3rem; font-family: var(--serif); font-size: clamp(3.3rem, 7.2vw, 6.4rem); line-height: 0.99; letter-spacing: -0.035em; font-weight: 500; }
+  h1 em { color: var(--green); font-weight: 400; }
+  .intro { max-width: 43ch; color: var(--ink-soft); font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.75; }
+  .primary-link { display: inline-flex; align-items: center; gap: 2.25rem; margin-top: 1.1rem; padding: 0.85rem 1.05rem; background: var(--green); color: #fffdf7; text-decoration: none; font-weight: 600; transition: background 180ms ease, transform 180ms ease; }
+  .primary-link:hover { color: white; background: var(--green-deep); transform: translateY(-2px); }
+  .primary-link span { font-size: 1.2rem; }
+  .hero-note { z-index: 1; max-width: 310px; align-self: end; padding-bottom: 1.25rem; }
+  .note-rule { width: 2.5rem; height: 2px; margin-bottom: 1.35rem; background: var(--gold); }
+  .note-title { margin-bottom: 0.65rem; font-family: var(--serif); font-size: 1.35rem; }
+  .note-body { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7; }
+  .hero-note a { color: var(--green-deep); font-size: 0.88rem; font-weight: 600; }
+  .hero-ornament { position: absolute; width: 320px; height: 320px; top: -132px; right: 3rem; opacity: 0.45; pointer-events: none; }
+  .hero-ornament span { position: absolute; inset: 0; border: 1px solid var(--paper-deep); border-radius: 50%; }
+  .hero-ornament span:nth-child(2) { inset: 24px; }
+  .hero-ornament span:nth-child(3) { inset: 48px; }
+  .home-path { display: grid; grid-template-columns: 0.78fr 1.22fr; gap: clamp(3rem, 9vw, 9rem); max-width: 1240px; margin: 0 auto; padding: 4.6rem 3rem 5rem; border-top: 1px solid var(--line); }
+  h2 { margin-bottom: 1.05rem; font-family: var(--serif); font-weight: 500; font-size: clamp(2.1rem, 4vw, 3.5rem); line-height: 1.08; letter-spacing: -0.025em; }
+  .path-intro { max-width: 34ch; color: var(--ink-soft); line-height: 1.7; }
+  .path-list { list-style: none; margin: 0; padding: 0; }
+  .path-list li { display: grid; grid-template-columns: 2.2rem 1fr; gap: 1rem; padding: 1rem 0 1.2rem; border-bottom: 1px solid var(--line); }
+  .path-list li:first-child { padding-top: 0; }
+  .path-index { color: var(--gold); font-family: var(--serif); font-style: italic; font-size: 1.15rem; }
+  h3 { margin: 0 0 0.35rem; font-family: var(--serif); font-weight: 500; font-size: 1.3rem; }
+  .path-list p { max-width: 54ch; margin: 0; color: var(--ink-soft); font-size: 0.94rem; line-height: 1.65; }
+  @media (max-width: 760px) {
+    .home-hero { min-height: auto; padding: 4.2rem 1.2rem 3.25rem; grid-template-columns: 1fr; gap: 3rem; }
+    .hero-note { max-width: 420px; padding: 1.4rem 0 0 1rem; border-top: 1px solid var(--line); margin-left: 0.25rem; }
+    .hero-ornament { right: -120px; }
+    .home-path { grid-template-columns: 1fr; gap: 1.5rem; padding: 3.4rem 1.2rem; }
+    h1 { font-size: clamp(3.1rem, 14vw, 5.1rem); }
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+<SiteLayout title="Tư liệu và cách xác minh — Học tiếng Tày">
+  <article class="page-shell">
+    <header class="page-heading">
+      <h1>Tư liệu &amp; cách xác minh</h1>
+      <p>Học một ngôn ngữ cũng là học cách tôn trọng người nói và nơi lời nói được cất lên.</p>
+    </header>
+    <section class="source-feature" aria-labelledby="source-title">
+      <p class="section-label">Nguồn chính dự kiến · Bình Liêu</p>
+      <h2 id="source-title">Học tiếng Tày Bình Liêu</h2>
+      <p class="source-status">Đang tìm và xác minh tư liệu</p>
+      <p class="source-copy">Đây là nguồn chính dự kiến cho bộ bài đầu tiên. Bản đọc và bản thu chưa được xác minh nên hiện chưa có nội dung học được công khai.</p>
+      <dl>
+        <div><dt>Vùng</dt><dd>Bình Liêu, Quảng Ninh</dd></div>
+        <div><dt>Trạng thái</dt><dd>Chưa có bài được duyệt</dd></div>
+        <div><dt>Quyền sử dụng</dt><dd>Chưa xác nhận cho nội dung công khai</dd></div>
+      </dl>
+    </section>
+    <section class="principles" aria-labelledby="principles-title">
+      <h2 id="principles-title">Điều kiện để một bài được mở</h2>
+      <ul>
+        <li><span>01</span><div><h3>Có nguồn cụ thể</h3><p>Ghi rõ tài liệu hoặc người cung cấp, vùng tiếng và ngữ cảnh sử dụng.</p></div></li>
+        <li><span>02</span><div><h3>Được người nói địa phương duyệt</h3><p>Không tự suy diễn cách đọc, cách viết hay nghĩa khi chưa có xác nhận.</p></div></li>
+        <li><span>03</span><div><h3>Quyền sử dụng được xác nhận</h3><p>Chỉ đăng văn bản và âm thanh khi đã rõ sự cho phép và phạm vi chia sẻ.</p></div></li>
+      </ul>
+      <p class="comparison-note">Tư liệu tiếng Tày từ vùng khác, nếu có, chỉ dùng để đối chiếu — không thay thế tiếng Tày Bình Liêu.</p>
+    </section>
+  </article>
+</SiteLayout>
+
+<style>
+  .page-shell { max-width: 1040px; margin: 0 auto; padding: 4.5rem 3rem 5rem; }
+  .page-heading { max-width: 700px; padding-bottom: 2.8rem; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { margin-bottom: 0.8rem; font: 500 clamp(2.8rem, 5.7vw, 4.7rem)/1.02 var(--serif); letter-spacing: -0.035em; }
+  .page-heading p { max-width: 55ch; margin: 0; color: var(--ink-soft); font-size: 1.05rem; line-height: 1.7; }
+  .source-feature { max-width: 780px; padding: 2rem 0 2.4rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section-label { margin-bottom: 0.7rem; color: var(--green); font-size: 0.85rem; font-weight: 650; }
+  h2 { margin-bottom: 0.6rem; font: 500 clamp(1.8rem, 3vw, 2.4rem)/1.12 var(--serif); letter-spacing: -0.02em; }
+  .source-status { display: inline-block; margin-bottom: 0.8rem; padding: 0.35rem 0.6rem; background: var(--paper-deep); color: var(--ink); font-size: 0.8rem; font-weight: 600; }
+  .source-copy { max-width: 64ch; color: var(--ink-soft); line-height: 1.75; }
+  dl { margin: 1.5rem 0 0; border-top: 1px solid var(--line); }
+  dl div { display: grid; grid-template-columns: minmax(120px, 0.4fr) 1fr; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+  dt { color: var(--ink-soft); font-size: 0.9rem; }
+  dd { margin: 0; font-size: 0.94rem; }
+  .principles { max-width: 780px; padding-top: 3.5rem; }
+  .principles > h2 { margin-bottom: 1.4rem; }
+  .principles ul { list-style: none; margin: 0; padding: 0; }
+  .principles li { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--line); }
+  .principles li > span { color: var(--gold); font-family: var(--serif); font-style: italic; }
+  h3 { margin-bottom: 0.3rem; font: 500 1.2rem var(--serif); }
+  .principles li p { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+  .comparison-note { margin: 1.5rem 0 0; padding: 1rem 1.1rem; background: var(--paper-deep); color: var(--ink); font-size: 0.94rem; line-height: 1.65; }
+  @media (max-width: 600px) {
+    .page-shell { padding: 3.3rem 1.2rem 3.8rem; }
+    dl div { grid-template-columns: 1fr; gap: 0.2rem; }
+  }
+</style>
