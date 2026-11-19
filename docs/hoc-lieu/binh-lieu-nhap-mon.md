@@ -26,6 +26,8 @@
 
 Các mô tả sau là lời giao tình huống bằng tiếng Việt, **không phải câu cần dịch sát chữ**. Người nói trả lời tự nhiên rồi giải thích khi nào họ dùng cách nói đó. Mỗi bài tách bản thu luyện khỏi bản thu kiểm tra.
 
+Dùng [phiếu thu âm và duyệt](phieu-thu-am-binh-lieu.md) để biết bản nào cần thu, ai kiểm tra và mục nào chưa được phép phát.
+
 - **BL01:** Hai người quen gặp nhau ngoài đường rồi chia tay. Thu hai lượt mở và kết riêng để người học tập phân biệt.
 - **BL02:** Một người gọi em mình vào nhà, sau đó một người trẻ gọi một bậc lớn tuổi. Ghi cách gọi trực tiếp và ngữ cảnh; không giả định cách gọi giống nhau giữa các nhà.
 - **BL03:** Người thân hỏi dạo này thế nào. Thu một lời đáp ngắn và một cách hỏi lại tự nhiên; bản kiểm tra đổi người hỏi nhưng giữ mục đích hỏi thăm.
