@@ -1,0 +1,14 @@
+---
+import LessonPractice from '../../components/LessonPractice.astro';
+
+export function getStaticPaths() {
+  // The internal fixture has no production path, so Astro cannot emit it to dist.
+  return import.meta.env.PROD
+    ? []
+    : [{ params: { id: 'TAY_INTERNAL_FIXTURE' } }];
+}
+
+const { id } = Astro.params;
+---
+
+{id === 'TAY_INTERNAL_FIXTURE' && <LessonPractice />}

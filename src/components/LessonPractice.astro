@@ -1,0 +1,185 @@
+---
+---
+
+<main class="lesson" data-lesson>
+  <a class="back" href="../../">← Về trang chính</a>
+  <p class="eyebrow">KHU VỰC THỬ NỘI BỘ · TAY_INTERNAL_FIXTURE</p>
+  <h1>Thử một lượt học</h1>
+  <aside class="notice" role="note">
+    <strong>Chỉ để thử giao diện — không phải nội dung tiếng Tày.</strong>
+    <span>Âm thanh bên dưới là tiếng bíp tạo bằng máy, không phải giọng nói hay tư liệu địa phương.</span>
+  </aside>
+  <section class="progress-status" aria-label="Progress status" aria-live="polite">
+    <p data-listening-status>Listening: Not yet complete</p>
+    <p data-answer-status>Answer: Not yet complete</p>
+    <p data-speaking-status>Speaking: Not tried</p>
+  </section>
+
+  <section class="step" aria-labelledby="listen-title">
+    <p class="step-no">01 / NGHE</p>
+    <h2 id="listen-title">Nghe âm minh họa</h2>
+    <p>Phát hết âm thanh để ghi nhận bạn đã nghe. Nếu không phát được, bạn vẫn có thể tiếp tục bài.</p>
+    <audio controls preload="none" aria-label="Âm bíp minh họa, không phải tiếng Tày"></audio>
+    <button class="secondary" type="button" data-retry-audio>Tạo lại âm minh họa</button>
+    <details>
+      <summary>Xem mô tả thay cho âm thanh</summary>
+      <p>Đây là một âm bíp ngắn, cao và đều. Đọc mô tả không đánh dấu bước nghe hoàn thành.</p>
+    </details>
+  </section>
+
+  <section class="step" aria-labelledby="understand-title">
+    <p class="step-no">02 / HIỂU</p>
+    <h2 id="understand-title">Âm minh họa vừa rồi như thế nào?</h2>
+    <p>Chọn một đáp án. Đây là câu hỏi kiểm tra thao tác, không phải bài học tiếng Tày.</p>
+    <fieldset>
+      <legend>Âm thanh có cao độ như thế nào?</legend>
+      <label><input type="radio" name="answer" value="high" /> Cao</label>
+      <label><input type="radio" name="answer" value="low" /> Trầm</label>
+    </fieldset>
+    <button type="button" data-check>Kiểm tra đáp án</button>
+    <p class="feedback" role="status" aria-live="polite" data-feedback></p>
+  </section>
+
+  <section class="step" aria-labelledby="speak-title">
+    <p class="step-no">03 / THỬ NÓI</p>
+    <h2 id="speak-title">Thử nói theo cách của bạn</h2>
+    <p>Không cần bật micro. Hãy đọc thành tiếng câu: <q>Âm này cao.</q></p>
+    <button class="secondary" type="button" data-spoke>Tôi đã thử nói</button>
+    <p class="feedback" role="status" aria-live="polite" data-speak-status></p>
+  </section>
+
+  <section class="step review" aria-labelledby="review-title">
+    <p class="step-no">04 / ÔN LẠI</p>
+    <h2 id="review-title">Câu cần ôn</h2>
+    <p data-review>Chưa có câu nào cần ôn.</p>
+    <button class="secondary" type="button" data-review-answer hidden>Ôn lại: âm này cao hay trầm?</button>
+  </section>
+
+  <p class="save-status" role="status" aria-live="polite" data-save-status></p>
+</main>
+
+<script>
+  import { answer, createProgressStore, markListened, markSpoken, readTranscript } from '../lib/progress';
+
+  const root = document.querySelector<HTMLElement>('[data-lesson]');
+  if (root) {
+    const store = createProgressStore(() => window.localStorage);
+    const lessonId = 'TAY_INTERNAL_FIXTURE';
+    let progress = store.load(lessonId);
+    const audio = root.querySelector('audio')!;
+    const saveStatus = root.querySelector<HTMLElement>('[data-save-status]')!;
+    const feedback = root.querySelector<HTMLElement>('[data-feedback]')!;
+    const speakStatus = root.querySelector<HTMLElement>('[data-speak-status]')!;
+    const reviewText = root.querySelector<HTMLElement>('[data-review]')!;
+    const reviewButton = root.querySelector<HTMLButtonElement>('[data-review-answer]')!;
+    const listeningStatus = root.querySelector<HTMLElement>('[data-listening-status]')!;
+    const answerStatus = root.querySelector<HTMLElement>('[data-answer-status]')!;
+    const speakingStatus = root.querySelector<HTMLElement>('[data-speaking-status]')!;
+    const radios = root.querySelectorAll<HTMLInputElement>('input[name="answer"]');
+
+    function save() {
+      saveStatus.textContent = store.save(progress)
+        ? 'Tiến độ đã lưu trên thiết bị này.'
+        : 'Không lưu được tiến độ trên thiết bị. Bạn vẫn có thể tiếp tục trong lượt này.';
+    }
+    function renderProgress() {
+      listeningStatus.textContent = `Listening: ${progress.listened ? 'Complete' : 'Not yet complete'}`;
+      answerStatus.textContent = progress.review.includes('tone')
+        ? 'Answer: Needs review'
+        : `Answer: ${progress.done.includes('tone') ? 'Complete' : 'Not yet complete'}`;
+      speakingStatus.textContent = `Speaking: ${progress.spoke ? 'Tried' : 'Not tried'}`;
+    }
+    function renderReview() {
+      const needsReview = progress.review.includes('tone');
+      reviewText.textContent = needsReview ? 'Âm minh họa: cao hay trầm?' : 'Chưa có câu nào cần ôn.';
+      reviewButton.hidden = !needsReview;
+    }
+    function setDemoSound() {
+      // Tạo âm bíp tổng hợp tại chỗ; không chứa hoặc tải lên bản ghi.
+      const sampleRate = 8000;
+      const samples = new Uint8Array(44 + sampleRate / 2);
+      const view = new DataView(samples.buffer);
+      const write = (offset: number, text: string) => [...text].forEach((c, i) => view.setUint8(offset + i, c.charCodeAt(0)));
+      write(0, 'RIFF'); view.setUint32(4, 36 + sampleRate / 2, true); write(8, 'WAVE');
+      write(12, 'fmt '); view.setUint32(16, 16, true); view.setUint16(20, 1, true);
+      view.setUint16(22, 1, true); view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate, true); view.setUint16(32, 1, true); view.setUint16(34, 8, true);
+      write(36, 'data'); view.setUint32(40, sampleRate / 2, true);
+      for (let i = 0; i < sampleRate / 2; i++) {
+        const fade = Math.min(1, i / 250, (sampleRate / 2 - i) / 500);
+        view.setUint8(44 + i, 128 + Math.round(48 * fade * Math.sin((2 * Math.PI * 880 * i) / sampleRate)));
+      }
+      audio.src = URL.createObjectURL(new Blob([samples], { type: 'audio/wav' }));
+    }
+
+    audio.addEventListener('ended', () => { progress = markListened(progress); renderProgress(); save(); });
+    root.querySelector('[data-retry-audio]')?.addEventListener('click', setDemoSound);
+    root.querySelector('[data-check]')?.addEventListener('click', () => {
+      const selected = root.querySelector<HTMLInputElement>('input[name="answer"]:checked');
+      if (!selected) { feedback.textContent = 'Hãy chọn một đáp án trước nhé.'; return; }
+      progress = answer(progress, 'tone', selected.value === 'high');
+      feedback.textContent = selected.value === 'high' ? 'Chính xác — đây là âm cao.' : 'Chưa đúng. Đáp án minh họa là âm cao; câu đã được thêm vào mục ôn.';
+      renderReview(); renderProgress(); save();
+    });
+    root.querySelector('[data-spoke]')?.addEventListener('click', () => {
+      progress = markSpoken(progress);
+      speakStatus.textContent = 'Đã ghi nhận bạn thử nói. Không cần micro và không có bản ghi nào được tạo.';
+      renderProgress(); save();
+    });
+    reviewButton.addEventListener('click', () => {
+      radios.forEach((radio) => { radio.checked = false; });
+      feedback.textContent = 'Review this question: choose an answer, then select “Kiểm tra đáp án”.';
+      radios[0]?.focus();
+    });
+    root.querySelector('summary')?.addEventListener('click', () => { progress = readTranscript(progress); });
+    setDemoSound();
+    renderReview();
+    renderProgress();
+  }
+</script>
+
+<style>
+  .lesson {
+    --ink: #202c27;
+    --muted: #68766d;
+    --paper: #f7f5ee;
+    --line: #d9ded4;
+    --green: #286248;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(1.25rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+  .back { display: inline-block; color: var(--green); font: 600 .95rem system-ui, sans-serif; text-underline-offset: .2em; }
+  .eyebrow, .step-no { color: var(--green); font: 700 .72rem/1.4 system-ui, sans-serif; letter-spacing: .12em; }
+  h1 { margin: 1.6rem 0 1rem; font-size: clamp(2.4rem, 8vw, 4rem); line-height: .98; letter-spacing: -.045em; }
+  h2 { margin: .3rem 0 .55rem; font-size: clamp(1.4rem, 4vw, 1.8rem); letter-spacing: -.025em; }
+  p { line-height: 1.65; }
+  .notice { display: grid; gap: .3rem; padding: 1rem 1.1rem; background: #f3e8d5; border-left: 4px solid #a95f27; line-height: 1.55; }
+  .notice span { color: #584b3c; }
+  .progress-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: .5rem 1rem; margin: 1rem 0; padding: .8rem 1rem; background: #eaf0e9; border-radius: .75rem; font: 600 .88rem/1.45 system-ui, sans-serif; }
+  .progress-status p { margin: 0; }
+  .step { margin: 1.25rem 0; padding: clamp(1rem, 4vw, 1.65rem); background: var(--paper); border: 1px solid var(--line); border-radius: 1rem; }
+  .step > p:not(.step-no) { color: var(--muted); }
+  audio { display: block; width: 100%; max-width: 100%; margin: 1rem 0 .6rem; }
+  button { min-height: 2.8rem; margin: .3rem .35rem .3rem 0; padding: .65rem 1rem; border: 0; border-radius: 999px; background: var(--green); color: white; font: 650 .95rem system-ui, sans-serif; cursor: pointer; }
+  button.secondary { color: var(--green); background: #e6eee7; }
+  button:hover { filter: brightness(.93); }
+  button:focus-visible, a:focus-visible, summary:focus-visible, input:focus-visible { outline: 3px solid #cb7d38; outline-offset: 3px; }
+  details { margin-top: 1rem; }
+  summary { width: fit-content; cursor: pointer; color: var(--green); text-decoration: underline; text-underline-offset: .2em; }
+  fieldset { display: grid; gap: .7rem; margin: 1rem 0; padding: 1rem; border: 1px solid var(--line); border-radius: .7rem; }
+  legend { padding: 0 .35rem; }
+  fieldset label { display: flex; align-items: center; gap: .55rem; min-height: 2rem; cursor: pointer; }
+  input { accent-color: var(--green); }
+  .feedback, .save-status { min-height: 1.5em; color: var(--green); font-weight: 600; }
+  .review { border-color: #e0cba8; background: #fbf4e8; }
+  @media (prefers-reduced-motion: no-preference) {
+    .step { animation: arrive .45s both; }
+    .step:nth-of-type(2) { animation-delay: .04s; }
+    .step:nth-of-type(3) { animation-delay: .08s; }
+    .step:nth-of-type(4) { animation-delay: .12s; }
+    @keyframes arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  }
+</style>
